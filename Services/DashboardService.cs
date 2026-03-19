@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using Palickaj.Data;
-using Palickaj.Models;
-using Palickaj.ViewModels;
+using ErpSupportDesk.Data;
+using ErpSupportDesk.Models;
+using ErpSupportDesk.ViewModels;
 
-namespace Palickaj.Services;
+namespace ErpSupportDesk.Services;
 
 public sealed class DashboardService(AppDbContext db)
 {

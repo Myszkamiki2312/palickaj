@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Palickaj.Data;
+using ErpSupportDesk.Data;
 
-namespace Palickaj.Services;
+namespace ErpSupportDesk.Services;
 
 public sealed class TicketNumberGenerator(AppDbContext db)
 {

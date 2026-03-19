@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Palickaj.Data;
-using Palickaj.Models;
-using Palickaj.ViewModels;
+using ErpSupportDesk.Data;
+using ErpSupportDesk.Models;
+using ErpSupportDesk.ViewModels;
 
-namespace Palickaj.Controllers;
+namespace ErpSupportDesk.Controllers;
 
 public sealed class IntegrationsController(AppDbContext db) : Controller
 {

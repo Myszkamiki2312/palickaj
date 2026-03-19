@@ -3,12 +3,12 @@ using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Palickaj.Data;
-using Palickaj.Models;
-using Palickaj.Services;
-using Palickaj.ViewModels;
+using ErpSupportDesk.Data;
+using ErpSupportDesk.Models;
+using ErpSupportDesk.Services;
+using ErpSupportDesk.ViewModels;
 
-namespace Palickaj.Controllers;
+namespace ErpSupportDesk.Controllers;
 
 public sealed class TicketsController(AppDbContext db, TicketNumberGenerator ticketNumberGenerator) : Controller
 {

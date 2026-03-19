@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Palickaj.Services;
+using ErpSupportDesk.Services;
 
-namespace Palickaj.Controllers;
+namespace ErpSupportDesk.Controllers;
 
 public sealed class ReportsController(DashboardService dashboardService) : Controller
 {

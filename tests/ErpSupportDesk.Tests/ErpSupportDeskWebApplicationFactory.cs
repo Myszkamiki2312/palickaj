@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Palickaj.Data;
+using ErpSupportDesk.Data;
 
-namespace Palickaj.Tests;
+namespace ErpSupportDesk.Tests;
 
-public sealed class PalickajWebApplicationFactory : WebApplicationFactory<Program>, IDisposable
+public sealed class ErpSupportDeskWebApplicationFactory : WebApplicationFactory<Program>, IDisposable
 {
-    private readonly string _databasePath = Path.Combine(Path.GetTempPath(), $"palickaj-tests-{Guid.NewGuid():N}.db");
+    private readonly string _databasePath = Path.Combine(Path.GetTempPath(), $"erp-support-desk-tests-{Guid.NewGuid():N}.db");
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {

@@ -3,16 +3,16 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Palickaj.Data;
+using ErpSupportDesk.Data;
 
-namespace Palickaj.Tests;
+namespace ErpSupportDesk.Tests;
 
 public sealed class TicketFlowTests
 {
     [Fact]
     public async Task CreateForm_ShouldRenderCleanPolishLabels()
     {
-        using var factory = new PalickajWebApplicationFactory();
+        using var factory = new ErpSupportDeskWebApplicationFactory();
         using var client = factory.CreateClient(new WebApplicationFactoryClientOptions
         {
             BaseAddress = new Uri("https://localhost"),
@@ -37,7 +37,7 @@ public sealed class TicketFlowTests
     [Fact]
     public async Task CreateTicket_ShouldPersistAndBeVisibleOnDetailsAndList()
     {
-        using var factory = new PalickajWebApplicationFactory();
+        using var factory = new ErpSupportDeskWebApplicationFactory();
         using var client = factory.CreateClient(new WebApplicationFactoryClientOptions
         {
             BaseAddress = new Uri("https://localhost"),

@@ -1,9 +1,9 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Palickaj.Models;
-using Palickaj.Services;
+using ErpSupportDesk.Models;
+using ErpSupportDesk.Services;
 
-namespace Palickaj.Controllers;
+namespace ErpSupportDesk.Controllers;
 
 public sealed class HomeController(DashboardService dashboardService) : Controller
 {

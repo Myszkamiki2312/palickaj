@@ -1,4 +1,4 @@
-namespace Palickaj.Models;
+namespace ErpSupportDesk.Models;
 
 public static class SupportCatalog
 {

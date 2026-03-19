@@ -1,6 +1,6 @@
-using Palickaj.Models;
+using ErpSupportDesk.Models;
 
-namespace Palickaj.ViewModels;
+namespace ErpSupportDesk.ViewModels;
 
 public sealed class ClientDetailsViewModel
 {

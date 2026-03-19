@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Palickaj.Models;
+namespace ErpSupportDesk.Models;
 
 public sealed class ServiceTicket
 {

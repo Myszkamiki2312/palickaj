@@ -1,6 +1,6 @@
-# Palickaj
+# ERP Support Desk
 
-Palickaj to aplikacja webowa napisana w C# i .NET 8, przygotowana jako projekt portfolio pod stanowisko laczace helpdesk, serwis techniczny, obsluge klienta i rozwoj rozwiazan ERP.
+ERP Support Desk to aplikacja webowa napisana w C# i .NET 8, przygotowana jako projekt portfolio pod stanowisko laczace helpdesk, serwis techniczny, obsluge klienta i rozwoj rozwiazan ERP.
 
 Projekt symuluje codzienna prace firmy wdrozeniowej:
 
@@ -12,6 +12,8 @@ Projekt symuluje codzienna prace firmy wdrozeniowej:
 ## Opis projektu
 
 Aplikacja pelni role wewnetrznego panelu operacyjnego dla zespolu wsparcia technicznego. Pokazuje zgloszenia, klientow, integracje oraz podstawowy raport techniczny. Projekt zostal zaprojektowany tak, aby pokazywac praktyczne wykorzystanie C#, .NET, pracy z baza danych i logiki biznesowej w realiach wsparcia systemow ERP.
+
+Projekt jest inspirowany realiami pracy przy systemach klasy ERP, w tym wdrozeniach i utrzymaniu srodowisk podobnych do Comarch ERP XL i Optima.
 
 ## Stack
 
@@ -43,10 +45,10 @@ Aplikacja pelni role wewnetrznego panelu operacyjnego dla zespolu wsparcia techn
 ### Kroki
 
 ```bash
-cd palickaj
+cd erp-support-desk
 dotnet restore
-dotnet build Palickaj.sln
-dotnet run --project Palickaj.csproj
+dotnet build ErpSupportDesk.sln
+dotnet run --project ErpSupportDesk.csproj
 ```
 
 ### Po uruchomieniu
@@ -60,7 +62,7 @@ Przy pierwszym starcie projekt automatycznie utworzy lokalna baze SQLite w katal
 Jesli domyslny port jest zajety, mozna uruchomic aplikacje np. tak:
 
 ```bash
-dotnet run --project Palickaj.csproj --urls http://localhost:5080
+dotnet run --project ErpSupportDesk.csproj --urls http://localhost:5080
 ```
 
 ## Jak sprawdzic, czy dziala

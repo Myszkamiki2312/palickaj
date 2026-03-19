@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Palickaj.Models;
+using ErpSupportDesk.Models;
 
-namespace Palickaj.ViewModels;
+namespace ErpSupportDesk.ViewModels;
 
 public sealed class TicketFormViewModel
 {

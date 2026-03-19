@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Palickaj.csproj" />
+    <ProjectReference Include="..\..\ErpSupportDesk.csproj" />
   </ItemGroup>
 
 </Project>

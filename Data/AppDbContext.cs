@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Palickaj.Models;
+using ErpSupportDesk.Models;
 
-namespace Palickaj.Data;
+namespace ErpSupportDesk.Data;
 
 public sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {

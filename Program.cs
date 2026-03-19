@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using Palickaj.Data;
-using Palickaj.Services;
+using ErpSupportDesk.Data;
+using ErpSupportDesk.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

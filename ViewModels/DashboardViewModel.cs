@@ -1,4 +1,4 @@
-namespace Palickaj.ViewModels;
+namespace ErpSupportDesk.ViewModels;
 
 public sealed class DashboardViewModel
 {
