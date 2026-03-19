@@ -1,0 +1,142 @@
+@model ClientDetailsViewModel
+@{
+    ViewData["Title"] = Model.Client.Name;
+    var integrationHealth = Model.Integrations.Count == 0 ? 100 : Math.Round(Model.Integrations.Average(item => item.SuccessRate), 1);
+}
+
+<section class="page-header">
+    <div>
+        <span class="eyebrow">Karta klienta</span>
+        <h1 class="page-title">@Model.Client.Name</h1>
+        <p class="page-copy">@Model.Client.ErpEnvironment - @Model.Client.Industry</p>
+    </div>
+    <a class="btn btn-outline-secondary" asp-action="Index">Powrot</a>
+</section>
+
+<section class="content-card">
+    <div class="summary-grid">
+        <div class="summary-tile">
+            <span class="info-label">Kontakt</span>
+            <strong>@Model.Client.ContactPerson</strong>
+            <div class="muted">@Model.Client.ContactEmail</div>
+        </div>
+        <div class="summary-tile">
+            <span class="info-label">Plan wsparcia</span>
+            <strong>@Model.Client.SupportPlan</strong>
+            <div class="muted">@Model.Client.ActiveUsers aktywnych uzytkownikow</div>
+        </div>
+        <div class="summary-tile">
+            <span class="info-label">Baza danych</span>
+            <strong>@Model.Client.DatabaseName</strong>
+            <div class="muted">Ostatni przeglad: @Model.Client.LastReviewAt.ToString("dd.MM.yyyy")</div>
+        </div>
+        <div class="summary-tile">
+            <span class="info-label">Zdrowie integracji</span>
+            <strong>@integrationHealth.ToString("0.#")%</strong>
+            <div class="muted">@Model.Integrations.Count aktywnych przeplywow</div>
+        </div>
+    </div>
+</section>
+
+<div class="page-grid">
+    <section class="content-card">
+        <div class="section-heading">
+            <div>
+                <span class="eyebrow">Aktywne zgloszenia</span>
+                <h2 class="section-title">Otwarte tematy</h2>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table data-table">
+                <thead>
+                    <tr>
+                        <th>Numer</th>
+                        <th>Temat</th>
+                        <th>Status</th>
+                        <th>Termin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.ActiveTickets.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="4" class="text-center py-4">Brak aktywnych zgloszen.</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var ticket in Model.ActiveTickets)
+                        {
+                            <tr>
+                                <td>@ticket.Number</td>
+                                <td>@ticket.Title</td>
+                                <td>@ticket.Status</td>
+                                <td>@ticket.DueAt.ToString("dd.MM.yyyy HH:mm")</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="content-card">
+        <div class="section-heading">
+            <div>
+                <span class="eyebrow">Ostatnia aktywnosc</span>
+                <h2 class="section-title">Najnowsze ruchy</h2>
+            </div>
+        </div>
+        <div class="stack-list">
+            @foreach (var ticket in Model.RecentTickets)
+            {
+                <div class="list-row">
+                    <div>
+                        <div class="list-title">@ticket.Number</div>
+                        <div class="list-subtitle">@ticket.Title</div>
+                    </div>
+                    <div class="list-meta">
+                        <span class="chip chip-outline">@ticket.Status</span>
+                        <span class="tiny-note">@ticket.UpdatedAt.ToString("dd.MM HH:mm")</span>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+</div>
+
+<section class="content-card">
+    <div class="section-heading">
+        <div>
+            <span class="eyebrow">Integracje</span>
+            <h2 class="section-title">Przeplywy z systemami zewnetrznymi</h2>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table data-table">
+            <thead>
+                <tr>
+                    <th>Nazwa</th>
+                    <th>Source</th>
+                    <th>Target</th>
+                    <th>Status</th>
+                    <th>Success rate</th>
+                    <th>Errors</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var integration in Model.Integrations)
+                {
+                    <tr>
+                        <td>@integration.Name</td>
+                        <td>@integration.SourceSystem</td>
+                        <td>@integration.TargetSystem</td>
+                        <td>@integration.Status</td>
+                        <td>@integration.SuccessRate.ToString("0.#")%</td>
+                        <td>@integration.ErrorCount</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

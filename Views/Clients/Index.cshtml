@@ -1,0 +1,65 @@
+@model ClientsIndexViewModel
+@{
+    ViewData["Title"] = "Klienci";
+}
+
+<section class="page-header">
+    <div>
+        <span class="eyebrow">Relacje z klientami</span>
+        <h1 class="page-title">Portfolio obslugiwanych firm</h1>
+        <p class="page-copy">Widok pokazuje klientow, ich srodowiska ERP, skale wykorzystania systemu i poziom aktywnego backlogu.</p>
+    </div>
+</section>
+
+<section class="content-card filter-panel">
+    <form asp-action="Index" method="get" class="filter-grid">
+        <div class="wide-field">
+            <label class="form-label" for="search">Szukaj</label>
+            <input class="form-control" id="search" name="search" value="@Model.Search" placeholder="Nazwa, branza albo baza danych" />
+        </div>
+        <div>
+            <label class="form-label" for="supportPlan">Plan wsparcia</label>
+            <select class="form-select" id="supportPlan" name="supportPlan">
+                <option value="">Wszystkie</option>
+                @foreach (var option in Model.SupportPlanOptions)
+                {
+                    <option value="@option" selected="@(option == Model.SupportPlan)">@option</option>
+                }
+            </select>
+        </div>
+        <div class="filter-actions">
+            <button class="btn btn-dark" type="submit">Filtruj</button>
+            <a class="btn btn-outline-secondary" asp-action="Index">Reset</a>
+        </div>
+    </form>
+</section>
+
+<section class="client-grid">
+    @foreach (var client in Model.Clients)
+    {
+        <a class="client-card" asp-action="Details" asp-route-id="@client.Id">
+            <div class="card-top">
+                <div>
+                    <h2 class="section-title fs-3">@client.Name</h2>
+                    <p class="muted mb-0">@client.Industry</p>
+                </div>
+                <span class="chip chip-outline">@client.SupportPlan</span>
+            </div>
+            <p class="mb-0">@client.ErpEnvironment</p>
+            <div class="mini-stats">
+                <div>
+                    <span class="stat-label">Otwarte</span>
+                    <strong>@client.OpenTickets</strong>
+                </div>
+                <div>
+                    <span class="stat-label">Uzytkownicy</span>
+                    <strong>@client.ActiveUsers</strong>
+                </div>
+                <div>
+                    <span class="stat-label">Integracje</span>
+                    <strong>@client.IntegrationHealth.ToString("0.#")%</strong>
+                </div>
+            </div>
+        </a>
+    }
+</section>

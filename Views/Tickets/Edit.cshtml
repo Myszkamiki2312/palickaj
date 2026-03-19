@@ -1,0 +1,25 @@
+@model TicketFormViewModel
+@{
+    ViewData["Title"] = "Edycja zgloszenia";
+}
+
+<section class="page-header">
+    <div>
+        <span class="eyebrow">Service desk</span>
+        <h1 class="page-title">Edytuj zgloszenie</h1>
+        <p class="page-copy">Aktualizacja statusu, czasu pracy i parametrow biznesowych dla aktywnego tasku klienta.</p>
+    </div>
+</section>
+
+<form asp-action="Edit" asp-route-id="@Model.Id" method="post" class="content-card">
+    <input asp-for="Id" type="hidden" />
+    <partial name="_FormFields" model="Model" />
+    <div class="form-actions">
+        <button class="btn btn-primary btn-hero" type="submit">Zapisz zmiany</button>
+        <a class="btn btn-outline-secondary" asp-action="Details" asp-route-id="@Model.Id">Wroc do szczegolow</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

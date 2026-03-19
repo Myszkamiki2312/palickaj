@@ -1,0 +1,72 @@
+﻿@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString() ?? string.Empty;
+}
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Palickaj</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="app-header">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-xl">
+                <a class="navbar-brand brand-lockup" asp-area="" asp-controller="Home" asp-action="Index">
+                    <span class="brand-mark">P</span>
+                    <span>
+                        <span class="brand-title">Palickaj</span>
+                        <span class="brand-subtitle">Support Hub</span>
+                    </span>
+                </a>
+                <button class="navbar-toggler nav-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-between" id="main-nav">
+                    <ul class="navbar-nav align-items-lg-center gap-lg-2">
+                        <li class="nav-item">
+                            <a class="nav-link nav-pill @(currentController == "Home" ? "active" : string.Empty)" asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-pill @(currentController == "Tickets" ? "active" : string.Empty)" asp-area="" asp-controller="Tickets" asp-action="Index">Zgloszenia</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-pill @(currentController == "Clients" ? "active" : string.Empty)" asp-area="" asp-controller="Clients" asp-action="Index">Klienci</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-pill @(currentController == "Integrations" ? "active" : string.Empty)" asp-area="" asp-controller="Integrations" asp-action="Index">Integracje</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link nav-pill @(currentController == "Reports" ? "active" : string.Empty)" asp-area="" asp-controller="Reports" asp-action="Index">Raport</a>
+                        </li>
+                    </ul>
+                    <a class="btn btn-primary btn-hero mt-3 mt-lg-0" asp-controller="Tickets" asp-action="Create">Nowe zgloszenie</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main role="main" class="app-main">
+        <div class="container-xl pb-5">
+            @RenderBody()
+        </div>
+    </main>
+
+    <footer class="app-footer">
+        <div class="container-xl footer-row">
+            <div>
+                <strong>Palickaj</strong>
+                <span class="footer-copy">Demo aplikacji helpdesk / ERP w .NET 8</span>
+            </div>
+            <div class="footer-copy">
+                C# / ASP.NET Core MVC / Entity Framework / SQLite
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

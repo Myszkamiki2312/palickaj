@@ -1,0 +1,24 @@
+@model TicketFormViewModel
+@{
+    ViewData["Title"] = "Nowe zgloszenie";
+}
+
+<section class="page-header">
+    <div>
+        <span class="eyebrow">Service desk</span>
+        <h1 class="page-title">Dodaj nowe zgloszenie</h1>
+        <p class="page-copy">Formularz symuluje codzienna prace serwisanta i konsultanta ERP: opis problemu, termin, wycena i ownership.</p>
+    </div>
+</section>
+
+<form asp-action="Create" method="post" class="content-card">
+    <partial name="_FormFields" model="Model" />
+    <div class="form-actions">
+        <button class="btn btn-primary btn-hero" type="submit">Zapisz zgloszenie</button>
+        <a class="btn btn-outline-secondary" asp-action="Index">Anuluj</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

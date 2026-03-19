@@ -1,0 +1,126 @@
+@model TicketIndexViewModel
+@{
+    ViewData["Title"] = "Zgloszenia";
+
+    string PriorityClass(string value) => value switch
+    {
+        "Krytyczny" => "chip chip-red",
+        "Wysoki" => "chip chip-gold",
+        "Sredni" => "chip chip-blue",
+        _ => "chip chip-dark"
+    };
+
+    string StatusClass(string value) => value switch
+    {
+        "Nowe" => "chip chip-red",
+        "W realizacji" => "chip chip-blue",
+        "Czeka na klienta" => "chip chip-gold",
+        "Zaplanowane" => "chip chip-green",
+        _ => "chip chip-dark"
+    };
+}
+
+<section class="page-header">
+    <div>
+        <span class="eyebrow">Service desk</span>
+        <h1 class="page-title">Backlog zgloszen</h1>
+        <p class="page-copy">Lista aktywnych tematow z mozliwoscia filtrowania, exportu CSV i przejscia do szczegolow zgloszenia.</p>
+    </div>
+    <a class="btn btn-primary btn-hero" asp-action="Create">Nowe zgloszenie</a>
+</section>
+
+<section class="content-card filter-panel">
+    <form asp-action="Index" method="get" class="filter-grid">
+        <div class="wide-field">
+            <label class="form-label" for="search">Szukaj</label>
+            <input class="form-control" id="search" name="search" value="@Model.Search" placeholder="Numer, temat lub klient" />
+        </div>
+        <div>
+            <label class="form-label" for="status">Status</label>
+            <select class="form-select" id="status" name="status">
+                <option value="">Wszystkie</option>
+                @foreach (var option in Model.StatusOptions)
+                {
+                    <option value="@option" selected="@(option == Model.Status)">@option</option>
+                }
+            </select>
+        </div>
+        <div>
+            <label class="form-label" for="priority">Priorytet</label>
+            <select class="form-select" id="priority" name="priority">
+                <option value="">Wszystkie</option>
+                @foreach (var option in Model.PriorityOptions)
+                {
+                    <option value="@option" selected="@(option == Model.Priority)">@option</option>
+                }
+            </select>
+        </div>
+        <div>
+            <label class="form-label" for="module">Modul</label>
+            <select class="form-select" id="module" name="module">
+                <option value="">Wszystkie</option>
+                @foreach (var option in Model.ModuleOptions)
+                {
+                    <option value="@option" selected="@(option == Model.Module)">@option</option>
+                }
+            </select>
+        </div>
+        <div class="wide-field filter-actions">
+            <button class="btn btn-dark" type="submit">Filtruj</button>
+            <a class="btn btn-outline-secondary" asp-action="Index">Reset</a>
+            <a class="btn btn-outline-secondary"
+               asp-action="ExportCsv"
+               asp-route-search="@Model.Search"
+               asp-route-status="@Model.Status"
+               asp-route-priority="@Model.Priority"
+               asp-route-module="@Model.Module">Export CSV</a>
+        </div>
+    </form>
+</section>
+
+<section class="table-shell">
+    <div class="table-responsive">
+        <table class="table data-table">
+            <thead>
+                <tr>
+                    <th>Numer</th>
+                    <th>Klient</th>
+                    <th>Temat</th>
+                    <th>Modul</th>
+                    <th>Priorytet</th>
+                    <th>Status</th>
+                    <th>Prowadzacy</th>
+                    <th>Termin</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Tickets.Count == 0)
+                {
+                    <tr>
+                        <td colspan="9" class="text-center py-5">Brak wynikow dla wybranych filtrow.</td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var ticket in Model.Tickets)
+                    {
+                        <tr>
+                            <td><strong>@ticket.Number</strong></td>
+                            <td>@ticket.Client?.Name</td>
+                            <td>@ticket.Title</td>
+                            <td>@ticket.Module</td>
+                            <td><span class="@PriorityClass(ticket.Priority)">@ticket.Priority</span></td>
+                            <td><span class="@StatusClass(ticket.Status)">@ticket.Status</span></td>
+                            <td>@ticket.AssignedEngineer</td>
+                            <td>@ticket.DueAt.ToString("dd.MM.yyyy HH:mm")</td>
+                            <td class="text-end">
+                                <a class="btn btn-sm btn-outline-dark" asp-action="Details" asp-route-id="@ticket.Id">Szczegoly</a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

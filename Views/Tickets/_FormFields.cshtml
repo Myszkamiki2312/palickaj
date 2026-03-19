@@ -1,0 +1,88 @@
+@model TicketFormViewModel
+
+<div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+<div class="form-grid">
+    <div class="form-field-wide">
+        <label asp-for="Title" class="form-label"></label>
+        <input asp-for="Title" class="form-control form-control-lg" />
+        <span asp-validation-for="Title" class="text-danger small"></span>
+    </div>
+
+    <div>
+        <label asp-for="ClientId" class="form-label"></label>
+        <select asp-for="ClientId" asp-items="Model.ClientOptions" class="form-select"></select>
+        <span asp-validation-for="ClientId" class="text-danger small"></span>
+    </div>
+
+    <div>
+        <label asp-for="Module" class="form-label"></label>
+        <select asp-for="Module" asp-items="Model.ModuleOptions" class="form-select"></select>
+        <span asp-validation-for="Module" class="text-danger small"></span>
+    </div>
+
+    <div>
+        <label asp-for="Status" class="form-label"></label>
+        <select asp-for="Status" asp-items="Model.StatusOptions" class="form-select"></select>
+        <span asp-validation-for="Status" class="text-danger small"></span>
+    </div>
+
+    <div>
+        <label asp-for="Priority" class="form-label"></label>
+        <select asp-for="Priority" asp-items="Model.PriorityOptions" class="form-select"></select>
+        <span asp-validation-for="Priority" class="text-danger small"></span>
+    </div>
+
+    <div>
+        <label asp-for="AssignedEngineer" class="form-label"></label>
+        <select asp-for="AssignedEngineer" asp-items="Model.EngineerOptions" class="form-select"></select>
+        <span asp-validation-for="AssignedEngineer" class="text-danger small"></span>
+    </div>
+
+    <div>
+        <label asp-for="SourceChannel" class="form-label"></label>
+        <select asp-for="SourceChannel" asp-items="Model.SourceOptions" class="form-select"></select>
+        <span asp-validation-for="SourceChannel" class="text-danger small"></span>
+    </div>
+
+    <div>
+        <label asp-for="AffectedVersion" class="form-label"></label>
+        <input asp-for="AffectedVersion" class="form-control" />
+        <span asp-validation-for="AffectedVersion" class="text-danger small"></span>
+    </div>
+
+    <div>
+        <label asp-for="DueAt" class="form-label"></label>
+        <input asp-for="DueAt" type="datetime-local" class="form-control" />
+        <span asp-validation-for="DueAt" class="text-danger small"></span>
+    </div>
+
+    <div>
+        <label asp-for="PlannedHours" class="form-label"></label>
+        <input asp-for="PlannedHours" class="form-control" />
+        <span asp-validation-for="PlannedHours" class="text-danger small"></span>
+    </div>
+
+    <div>
+        <label asp-for="SpentHours" class="form-label"></label>
+        <input asp-for="SpentHours" class="form-control" />
+        <span asp-validation-for="SpentHours" class="text-danger small"></span>
+    </div>
+
+    <div class="form-field-wide">
+        <label asp-for="Description" class="form-label"></label>
+        <textarea asp-for="Description" rows="6" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger small"></span>
+    </div>
+</div>
+
+<div class="switch-grid mt-4">
+    <label class="toggle-card">
+        <input asp-for="RequiresDeployment" class="form-check-input" />
+        <span>Wymaga deploymentu produkcyjnego</span>
+    </label>
+    <label class="toggle-card">
+        <input asp-for="IsBillable" class="form-check-input" />
+        <span>Rozliczaj jako prace billable</span>
+    </label>
+</div>

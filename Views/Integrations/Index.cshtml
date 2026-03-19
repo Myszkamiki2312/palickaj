@@ -1,0 +1,93 @@
+@model IntegrationsIndexViewModel
+@{
+    ViewData["Title"] = "Integracje";
+}
+
+<section class="page-header">
+    <div>
+        <span class="eyebrow">Monitoring</span>
+        <h1 class="page-title">Integracje i synchronizacje</h1>
+        <p class="page-copy">Przeglad przeplywow miedzy ERP a systemami zewnetrznymi, wraz z odpowiedzialnoscia, skutecznoscia i liczba bledow.</p>
+    </div>
+</section>
+
+<section class="content-card filter-panel">
+    <form asp-action="Index" method="get" class="filter-grid">
+        <div class="wide-field">
+            <label class="form-label" for="search">Szukaj</label>
+            <input class="form-control" id="search" name="search" value="@Model.Search" placeholder="Nazwa integracji, klient albo system" />
+        </div>
+        <div>
+            <label class="form-label" for="status">Status</label>
+            <select class="form-select" id="status" name="status">
+                <option value="">Wszystkie</option>
+                @foreach (var option in Model.StatusOptions)
+                {
+                    <option value="@option" selected="@(option == Model.Status)">@option</option>
+                }
+            </select>
+        </div>
+        <div>
+            <label class="form-label" for="owner">Owner</label>
+            <select class="form-select" id="owner" name="owner">
+                <option value="">Wszyscy</option>
+                @foreach (var option in Model.OwnerOptions)
+                {
+                    <option value="@option" selected="@(option == Model.Owner)">@option</option>
+                }
+            </select>
+        </div>
+        <div class="filter-actions">
+            <button class="btn btn-dark" type="submit">Filtruj</button>
+            <a class="btn btn-outline-secondary" asp-action="Index">Reset</a>
+        </div>
+    </form>
+</section>
+
+<section class="table-shell">
+    <div class="table-responsive">
+        <table class="table data-table">
+            <thead>
+                <tr>
+                    <th>Nazwa</th>
+                    <th>Klient</th>
+                    <th>Status</th>
+                    <th>Owner</th>
+                    <th>Success rate</th>
+                    <th>Errors</th>
+                    <th>Nastepny run</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Integrations.Count == 0)
+                {
+                    <tr>
+                        <td colspan="7" class="text-center py-5">Brak integracji dla wybranych filtrow.</td>
+                    </tr>
+                }
+                else
+                {
+                    @foreach (var integration in Model.Integrations)
+                    {
+                        <tr>
+                            <td>
+                                <strong>@integration.Name</strong>
+                                <div class="muted">@integration.SourceSystem -> @integration.TargetSystem</div>
+                            </td>
+                            <td>@integration.Client?.Name</td>
+                            <td>
+                                <span class="chip @(integration.Status == "Wymaga reakcji" ? "chip chip-red" : integration.Status == "Monitorowana" ? "chip chip-gold" : "chip chip-green")">
+                                    @integration.Status
+                                </span>
+                            </td>
+                            <td>@integration.Owner</td>
+                            <td>@integration.SuccessRate.ToString("0.#")%</td>
+                            <td>@integration.ErrorCount</td>
+                            <td>@integration.NextRunAt.ToString("dd.MM.yyyy HH:mm")</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

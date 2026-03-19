@@ -1,0 +1,95 @@
+@model ServiceTicket
+@using System.Globalization
+@{
+    ViewData["Title"] = Model.Number;
+    var progress = Model.PlannedHours == 0 ? 0 : Math.Min(100, Math.Round(Model.SpentHours / Model.PlannedHours * 100, 1));
+}
+
+<section class="page-header">
+    <div>
+        <span class="eyebrow">Zgloszenie</span>
+        <h1 class="page-title">@Model.Number</h1>
+        <p class="page-copy">@Model.Title</p>
+    </div>
+    <div class="filter-actions">
+        <a class="btn btn-outline-secondary" asp-action="Index">Powrot</a>
+        <a class="btn btn-primary btn-hero" asp-action="Edit" asp-route-id="@Model.Id">Edytuj</a>
+    </div>
+</section>
+
+<section class="content-card">
+    <div class="info-grid">
+        <div class="info-tile">
+            <span class="info-label">Klient</span>
+            <strong>@Model.Client?.Name</strong>
+        </div>
+        <div class="info-tile">
+            <span class="info-label">Modul</span>
+            <strong>@Model.Module</strong>
+        </div>
+        <div class="info-tile">
+            <span class="info-label">Priorytet</span>
+            <strong>@Model.Priority</strong>
+        </div>
+        <div class="info-tile">
+            <span class="info-label">Status</span>
+            <strong>@Model.Status</strong>
+        </div>
+        <div class="info-tile">
+            <span class="info-label">Prowadzacy</span>
+            <strong>@Model.AssignedEngineer</strong>
+        </div>
+        <div class="info-tile">
+            <span class="info-label">Termin</span>
+            <strong>@Model.DueAt.ToString("dd.MM.yyyy HH:mm")</strong>
+        </div>
+    </div>
+</section>
+
+<div class="page-grid">
+    <section class="content-card">
+        <div class="section-heading">
+            <div>
+                <span class="eyebrow">Opis</span>
+                <h2 class="section-title">Kontekst techniczny</h2>
+            </div>
+        </div>
+        <div class="detail-block">
+            <p>@Model.Description</p>
+        </div>
+    </section>
+
+    <section class="content-card">
+        <div class="section-heading">
+            <div>
+                <span class="eyebrow">Postep</span>
+                <h2 class="section-title">Prace i planowanie</h2>
+            </div>
+        </div>
+        <div class="detail-block">
+            <span class="info-label">Realizacja godzinowa</span>
+            <div class="progress-track">
+                <div class="progress-fill" style=@($"width:{progress.ToString(CultureInfo.InvariantCulture)}%")></div>
+            </div>
+            <p class="mt-3 mb-0"><strong>@Model.SpentHours.ToString("0.#")h</strong> z <strong>@Model.PlannedHours.ToString("0.#")h</strong></p>
+        </div>
+        <div class="summary-grid mt-4">
+            <div class="summary-tile">
+                <span class="info-label">Kanal</span>
+                <strong>@Model.SourceChannel</strong>
+            </div>
+            <div class="summary-tile">
+                <span class="info-label">Wersja</span>
+                <strong>@Model.AffectedVersion</strong>
+            </div>
+            <div class="summary-tile">
+                <span class="info-label">Deployment</span>
+                <strong>@(Model.RequiresDeployment ? "Tak" : "Nie")</strong>
+            </div>
+            <div class="summary-tile">
+                <span class="info-label">Billable</span>
+                <strong>@(Model.IsBillable ? "Tak" : "Nie")</strong>
+            </div>
+        </div>
+    </section>
+</div>
